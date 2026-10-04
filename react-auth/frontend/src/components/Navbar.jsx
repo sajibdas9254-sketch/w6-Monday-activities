@@ -1,20 +1,26 @@
 import { Link } from "react-router-dom";
 
 function Navbar({ setIsAuthenticated, isAuthenticated }) {
+  
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const handleClick = () => {
-    // remove user from storage
-    sessionStorage.removeItem("user"); // ← CHANGED
-    setIsAuthenticated(false);
+    localStorage.removeItem("user"); 
+    setIsAuthenticated(false); 
   };
 
   return (
     <nav>
+      {/* Shown ONLY when the user is logged in */}
       {isAuthenticated && (
         <div>
-          <span>Welcome</span>
+          <Link to="/">Home</Link>
+          <span>Welcome, {user?.email}</span>
           <button onClick={handleClick}>Log out</button>
         </div>
       )}
+
+      {/* Shown ONLY when the user is NOT logged in */}
       {!isAuthenticated && (
         <div>
           <Link to="/login">Login</Link>

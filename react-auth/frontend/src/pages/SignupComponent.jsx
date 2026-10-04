@@ -18,7 +18,7 @@ const SignupComponent = ({ setIsAuthenticated }) => {
 
       if (response.ok) {
         const user = await response.json();
-        sessionStorage.setItem("user", JSON.stringify(user)); // ← CHANGED
+        localStorage.setItem("user", JSON.stringify(user));
         console.log("User signed up successfully!");
         setIsAuthenticated(true);
         navigate("/");

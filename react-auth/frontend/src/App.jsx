@@ -3,12 +3,16 @@ import { useState } from "react";
 import SignupComponent from "./pages/SignupComponent";
 import LoginComponent from "./pages/LoginComponent";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    JSON.parse(sessionStorage.getItem("user")) || false // ← CHANGED
-  );
+ 
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user && user.token ? true : false;
+  });
+
   return (
     <>
       <BrowserRouter>
@@ -18,10 +22,17 @@ function App() {
         />
         <div className="pages">
           <Routes>
+            {/* Protected: only logged-in users */}
             <Route
               path="/"
               element={isAuthenticated ? <Home /> : <Navigate to="/login" />}
             />
+            <Route
+              path="/profile"
+              element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
+            />
+
+            {/* Guest-only: only logged-out users */}
             <Route
               path="/login"
               element={

@@ -18,10 +18,10 @@ const LoginComponent = ({ setIsAuthenticated }) => {
 
       if (response.ok) {
         const user = await response.json();
-        localStorage.setItem("user", JSON.stringify(user)); // 1. save token
+        localStorage.setItem("user", JSON.stringify(user)); 
         console.log("User logged in successfully!");
-        setIsAuthenticated(true); // 2. update state
-        navigate("/"); // 3. go to home page
+        setIsAuthenticated(true); 
+        navigate("/"); 
       } else {
         console.error("Login failed");
       }
